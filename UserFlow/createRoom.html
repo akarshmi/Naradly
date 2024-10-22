@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Room</title>
+    <link rel="stylesheet" href="createRoom.css">
+</head>
+<body>
+    <div class="roomCreation">
+        <form class="form" id="room-form">
+            <span class="heading">Create Room</span>
+
+            <label for="room-name">Room Name</label>
+            <input id="room-name" name="roomName" placeholder="Enter Room Name" type="text" class="input" required />
+
+            <label for="host-username">Host Username</label>
+            <input id="host-username" name="hostUsername" placeholder="Enter Username" type="text" class="input" required />
+
+            <button type="submit" id="submit-btn">Submit</button>
+            <a class="create" href="/UserFlow/joinRoom.html">If you have Room ID, Just <i><b><u>Join Now</u></b></i>.</a>
+            <div id="message" style="color: red;"></div> <!-- For feedback messages -->
+        </form>
+    </div>
+
+    <input type="hidden" id="roomId"> <!-- Hidden input to store the room ID -->
+
+    <!-- Success Dialog Element -->
+    <dialog id="successDialog">
+        <div class="dialog">
+            <h2 class="heading">Success!</h2>
+            <div class="success-message">Your room has been created successfully!</div>
+            <button id="shareButton">Get the Room ID</button>
+            <button id="continueChatButton">Continue to Join</button>
+            <button id="closeSuccessDialog">Close</button>
+        </div>
+    </dialog>
+
+    <!-- Error Dialog Element -->
+    <dialog id="errorDialog">
+        <div class="dialog">
+            <h2 class="heading">Error!</h2>
+            <div class="error-message">There was an error creating your room. Please try again.</div>
+            <button id="closeErrorDialog">Close</button>
+        </div>
+    </dialog>
+
+    <script>
+        // Handle form submission
+        document.getElementById('room-form').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+
+            console.log('Data to be sent:', data); // Log the data for debugging
+
+            // Submit the data to the server
+            const response = await fetch('http://localhost:3000/createRoom', { // Ensure this URL is correct
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                console.error('Error:', error); // Log the error for debugging
+                document.getElementById('message').textContent = `Error: ${error.error}`;
+                
+                // Show the error dialog
+                const errorDialog = document.getElementById('errorDialog');
+                errorDialog.showModal(); // Show the error dialog
+            } else {
+                const result = await response.json();
+                document.getElementById('message').textContent = `Room created! Room ID: ${result.roomId}`; // Display the room ID
+                document.getElementById('roomId').value = result.roomId; // Set the room ID in the hidden input
+
+                this.reset(); // Reset the form
+
+                // Show the success dialog
+                const successDialog = document.getElementById('successDialog');
+                successDialog.showModal(); // Show the success dialog
+            }
+        });
+
+        // Close success dialog
+        document.getElementById('closeSuccessDialog').onclick = () => {
+            document.getElementById('successDialog').close();
+        };
+
+        // Close error dialog
+        document.getElementById('closeErrorDialog').onclick = () => {
+            document.getElementById('errorDialog').close();
+        };
+
+        // Share button functionality
+        document.getElementById('shareButton').onclick = () => {
+            const roomId = document.getElementById('roomId').value; // Get the room ID from hidden input
+            const username = document.getElementById('host-username').value; // Get the username from input field
+            console.log(username);
+
+            const shareUrl = `${roomId}`; // Adjust the URL as needed
+
+            // Copy the share URL to the clipboard
+            navigator.clipboard.writeText(shareUrl).then(() => {
+                alert(`Room Id copied successfully. ${shareUrl}`); // Notify the user that the link has been copied
+            }).catch(err => {
+                console.error('Error copying text: ', err);
+            });
+        };
+
+        // Continue to chat button functionality
+        document.getElementById('continueChatButton').onclick = () => {
+            alert("Continuing to Join Page...");
+            // Redirect to chat page with the room ID and username
+            window.location.href = `joinRoom.html`; // Redirect to chat page with roomId and username
+        };
+    </script>
+</body>
+</html>

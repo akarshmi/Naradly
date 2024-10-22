@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Room</title>
+    <link rel="stylesheet" href="joinRoom.css">
+</head>
+
+<body>
+    <div class="joinRoom">
+        <form class="form" id="room-form">
+            <span class="heading">Join Room</span>
+
+            <label for="room-id">Room Id</label>
+            <input id="room-id" name="room-id" placeholder="Enter Room Id" type="text" class="input" required />
+
+            <label for="username">Username</label>
+            <input id="username" name="username" placeholder="Enter Username" type="text" class="input" required />
+
+            <button type="submit" id="submit-btn">Join</button>
+            <a class="create" href="/UserFlow/createRoom.html">If you don't have ID, Just <i><b><u>Create
+                            Now</u></b></i>.</a>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('room-form').addEventListener('submit', async function (e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            const roomId = document.getElementById('room-id').value;  // Fetch room ID from the form
+            const username = document.getElementById('username').value;  // Fetch username from the form
+            const submitButton = document.getElementById('submit-btn');  // Submit button
+
+            submitButton.disabled = true; // Disable the button to prevent multiple submissions
+
+            try {
+                // Make a POST request to the server to join a room
+                const response = await fetch('http://localhost:3000/joinRoom', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ roomId, username }), // Send the roomId and username as JSON in the request body
+                });
+
+                // If the response is okay, proceed
+                if (response.ok) {
+                    const data = await response.json();  // Parse the server response
+                    // Redirect the user to the chat window, passing the roomId and username as URL parameters
+                    window.location.href = `chat.html?roomId=${data.roomId}&username=${username}`;
+                } else if (response.status === 404) {
+                    alert('Room not found. Please check the Room ID.');  // Handle case when room ID is not found
+                } else if (response.status === 400) {
+                    alert('Invalid request. Please try again.');  // Handle case for invalid requests
+                } else {
+                    const errorData = await response.json();  // Capture any other errors
+                    alert(`Error: ${errorData.message}`);
+                }
+            } catch (error) {
+                // If an error occurs during the fetch (network issues, etc.), log it and alert the user
+                console.error('Error joining room:', error);
+                alert('An error occurred. Please try again.');
+            } finally {
+                submitButton.disabled = false; // Re-enable the button after the request is processed
+            }
+        });
+    </script>
+</body>
+
+</html>

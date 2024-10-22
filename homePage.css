@@ -1,0 +1,313 @@
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+DE+Grund:wght@100..400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&family=SUSE:wght@100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+
+@font-face {
+    font-family: 'Samarkan';
+    src: url('fonts/Samarkan.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MoenstrumRegular';
+    src: url('fonts/MoenstrumRegular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 
+body {
+    background-image: linear-gradient(to bottom, rgb(0 0 0 / 20%), rgb(0 0 0 / 50%)), radial-gradient(circle, #074493, #000000);
+} */
+
+nav {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-image: linear-gradient(to bottom, rgb(0 0 0 / 20%), rgb(0 0 0 / 50%)), radial-gradient(circle, #074493, #000000);
+}
+
+nav img {
+    height: 50px;
+    margin-right: 20px;
+
+}
+
+.logo {
+    font-family: Samarkan;
+    font-size: 50px;
+    color: white;
+    cursor: pointer;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+    margin-left: auto;
+
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+    transition: background 0.5s all ease-in-out;
+
+}
+
+.nav-links a:hover {
+    /* background: radial-gradient(circle, #009dff, #001a70); */
+    color: #009dff;
+    border-radius: 10%;
+}
+
+.main {
+    display: flex;
+    justify-content: space-around;
+}
+
+.main img {
+    height: 90vh;
+}
+
+.main-content {
+    background-image: linear-gradient(to bottom, rgb(0 0 0 / 20%), rgb(0 0 0 / 50%)), radial-gradient(circle, #074493, #000000);
+
+}
+
+.main-text {
+    color: snow;
+    text-align: center;
+    align-content: center;
+    width: 70vh;
+    margin: -350px;
+    height: fit-content;
+    margin-top: 15%;
+    margin-right: 15%;
+
+}
+
+.main-text a {
+    text-decoration: none
+}
+
+.main-text #summry {
+    font-family: cursive;
+    font-weight: 700;
+    font-size: larger;
+}
+
+.main-text h1 {
+    /* font-family: MoenstrumRegular; */
+    font-size: 40px;
+    width: max-content;
+    margin-bottom: 10%;
+}
+
+
+
+.button {
+    padding: 10px 15px;
+    margin-top: 15px;
+    background-color: #074493;
+    outline: 1px #007ACC solid;
+    outline-offset: -3px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: 400ms;
+    margin-left: 40%;
+    width: 115px;
+    display: flex;
+}
+
+.button .text {
+    color: white;
+    font-weight: 700;
+    font-size: 1em;
+    transition: 400ms;
+}
+
+.button:hover {
+    background-color: transparent;
+}
+
+.button:hover .text {
+    color: #007ACC;
+}
+
+@keyframes border-animation {
+    0% {
+        border-color: transparent;
+    }
+
+    50% {
+        border-color: #074493;
+    }
+
+    100% {
+        border-color: transparent;
+    }
+}
+
+
+.card-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    height: 100vh;
+    background-image: linear-gradient(to bottom, rgb(0 0 0 / 20%), rgb(0 0 0 / 50%)), radial-gradient(circle, #074493, #000000);
+
+
+}
+
+.card-main {
+    display: flex;
+    gap: 20px;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    width: 200px;
+    text-align: center;
+
+    height: 40vh;
+    width: 50vh;
+
+}
+
+
+.card img {
+    margin: 7px;
+    padding: 7px;
+    height: 100px;
+    border: 2px solid;
+    border-radius: 50%;
+    transition: .5s all ease-in-out;
+}
+
+
+.card:hover {
+    animation: border-animation 2s infinite;
+}
+
+.card:hover img {
+    border-radius: 0;
+}
+
+
+.card h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.card a {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+
+}
+
+.card a:hover {
+    background-color: #0056b3;
+}
+
+
+
+
+.info {
+    background-image: linear-gradient(to bottom, rgb(0 0 0 / 20%), rgb(0 0 0 / 50%)), radial-gradient(circle, #074493, #000000);
+    height: 220vh;
+}
+
+.wel-text {
+    font-family: "Merienda", cursive;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rounded-text {
+    background: linear-gradient(135deg, #128eb7, #cc00ff);
+    color: ghostwhite;
+    border-radius: 20px;
+    padding: 10px 20px;
+    display: inline-block;
+    text-align: center;
+}
+
+.info-text {
+    text-align: center;
+    font-family: "Playwrite DE Grund", cursive;
+    font-weight: 500;
+    color: white;
+    padding: 0px 150px 0px 150px;
+    margin: 30px;
+    font-size: larger;
+}
+
+.info-text p {
+    margin: 15px;
+    font-family: "Exo 2", sans-serif;
+    font-size: larger;
+
+}
+
+
+
+.feature-text p {
+    font-family: "Exo 2", sans-serif;
+
+}
+
+.feature-text h1 {
+    font-family: "Playwrite DE Grund", cursive;
+}
+
+.feature-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 0px 150px 0px 150px;
+    margin: 30px;
+
+}
+
+.text-img {
+    margin: 15px;
+}
+
+.p-text {
+    color: rgb(192 132 252 /1);
+    font-style: italic;
+}

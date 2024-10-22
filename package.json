@@ -1,0 +1,22 @@
+{
+  "name": "naradly",
+  "version": "1.0.0",
+  "description": "The Minor Project for College and my futures's first step to evolution.",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon ./ServerFiles/server.js"
+  },
+  "author": "Akarsh Mishra",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "mysql2": "^3.11.3",
+    "path": "^0.12.7",
+    "socket.io": "^4.8.0",
+    "uuid": "^10.0.0"
+  }
+}

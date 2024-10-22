@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with Usernames</title>
+    <link rel="stylesheet" href="chat.css">
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qs/dist/qs.min.js"></script>
+    <script src="chat.js" defer></script>
+</head>
+<body>
+    <form action="#" id="chat-container">
+        <div class="chat-header">
+            <h4 id="room-title">Room</h4>
+            <span id="username-display"></span> <!-- Display username here -->
+            <button type="button" id="leave-btn" class="leave-button">Leave</button>
+        </div>
+        <div class="chat-window">
+            <ul class="message-list">
+                <!-- Messages will be appended here -->
+            </ul>
+            <!-- <div class="notifications"></div> Notifications area -->
+        </div>
+        <div class="chat-input">
+            <input type="text" id="message-input" class="message-input" placeholder="Type your message here" required>
+            <button type="submit" class="send-button">Send</button>
+        </div>
+    </form>
+
+    <script>
+        const { roomId, username } = Qs.parse(location.search, { ignoreQueryPrefix: true });
+        const socket = io();
+
+        // Display the username and room title
+        document.getElementById('username-display').textContent = username;
+        document.getElementById('room-title').textContent = `Room: ${roomId}`;
+
+        // Emit a joinRoom event
+        socket.emit('joinRoom', { roomId, username });
+
+        // Listen for messages
+        socket.on('message', (message) => {
+            const messageList = document.querySelector('.message-list');
+            const li = document.createElement('li');
+            li.textContent = message;
+            messageList.appendChild(li);
+            // Scroll to the bottom of the message list
+            messageList.scrollTop = messageList.scrollHeight;
+        });
+
+        // Handle message submission
+        document.getElementById('chat-container').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const messageInput = document.getElementById('message-input');
+            const message = messageInput.value;
+            socket.emit('chatMessage', message);
+            messageInput.value = ''; // Clear the input
+        });
+
+        // Leave room button functionality
+        document.getElementById('leave-btn').addEventListener('click', () => {
+            socket.disconnect(); // Disconnect from the socket
+            window.location.href = '../index.html'; // Redirect to the index page
+        });
+    </script>
+</body>
+</html>

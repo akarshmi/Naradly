@@ -1,0 +1,12 @@
+# Handle line endings automatically for text files
+* text=auto
+
+# Force LF line endings for certain file types
+*.js eol=lf
+*.ts eol=lf
+*.json eol=lf
+*.md eol=lf
+*.sh eol=lf
+
+# Force CRLF line endings for Windows-specific files (optional)
+*.bat eol=crlf
